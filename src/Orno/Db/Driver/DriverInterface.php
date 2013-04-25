@@ -27,6 +27,8 @@ interface DriverInterface
      * Disconnect
      *
      * Kill the connection to the database
+     *
+     * @return boolean
      */
     public function disconnect();
 
@@ -66,6 +68,8 @@ interface DriverInterface
      * Execute
      *
      * Execute a prepared query
+     *
+     * @return boolean
      */
     public function execute();
 
@@ -73,8 +77,6 @@ interface DriverInterface
      * Transaction
      *
      * Begin a transaction
-     *
-     * @return boolean
      */
     public function transaction();
 
