@@ -1,0 +1,22 @@
+{
+    "name": "orno/db",
+    "description": "A database abstraction library.",
+    "keywords": ["orno", "db", "oracle", "pdo", "mysql"],
+    "homepage": "http://github.com/orno/di",
+    "license": "WTFPL",
+    "require": {
+        "php": ">=5.4"
+    },
+    "authors": [
+        {
+            "name": "Phil Bennett",
+            "email": "philipobenito@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Orno\\Db": "src/",
+        }
+    },
+    "minimum-stability": "dev"
+}

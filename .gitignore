@@ -1,0 +1,4 @@
+docs/
+vendor/
+coverage/
+composer.lock
