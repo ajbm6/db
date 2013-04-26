@@ -16,7 +16,7 @@ use Orno\Db\Exception;
  *
  * Note: It is recommended, for performance improvements, to set the oci8.default_prefetch
  * option in your php.ini. This will significantly improve network performance as it
- * will reduce the number of round trips on the network by buffering rows into the SLQ*Net
+ * will reduce the number of round trips on the network by buffering rows into the SQL*Net
  * transport cache.
  */
 class Oci8 implements DriverInterface
