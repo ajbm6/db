@@ -42,7 +42,7 @@ interface DriverInterface
     public function prepareQuery($query);
 
     /**
-     * Bind Param
+     * Bind
      *
      * Bind the value of a referenced variable to a placeholder in the prepared query
      *
@@ -115,7 +115,7 @@ interface DriverInterface
     /**
      * Fetch All
      *
-     * Return an indexed array containing associative arrays of single rows
+     * Return a multi-deminesional array of all rows from the result set
      *
      * <code>
      * [
