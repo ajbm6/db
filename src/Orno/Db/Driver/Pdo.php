@@ -17,16 +17,16 @@ use Orno\Db\Exception;
 class Pdo implements DriverInterface
 {
     /**
-     * The Oci8 Connection Resource
+     * The PDO object
      *
-     * @var resource
+     * @var \PDO
      */
     protected $connection;
 
     /**
-     * The Statement Resource
+     * The PDO statement object
      *
-     * @var resource
+     * @var \PDOStatement
      */
     protected $statement;
 
@@ -40,7 +40,7 @@ class Pdo implements DriverInterface
     {
         if (! extension_loaded('pdo')) {
             throw new Exception\UnsupportedException(
-                sprintf('%s requires the OCI8 extension to be loaded', __CLASS__)
+                sprintf('%s requires the PDO extension to be loaded', __CLASS__)
             );
         }
 
