@@ -36,6 +36,13 @@ class Oci8 implements DriverInterface
     protected $statement;
 
     /**
+     * Configuration array
+     *
+     * @var array
+     */
+    protected $config;
+
+    /**
      * Should executions be auto commited?
      *
      * @var boolean
@@ -56,7 +63,7 @@ class Oci8 implements DriverInterface
             );
         }
 
-        $this->connect($config);
+        $this->config = $config;
     }
 
     /**
@@ -68,6 +75,10 @@ class Oci8 implements DriverInterface
      */
     public function connect(array $config = [])
     {
+        if (is_resource($this->connection)) {
+            return $this;
+        }
+
         // filter config array
         $persistent = (isset($config['persistent'])) ? (bool) $config['persistent'] : true;
 
@@ -113,6 +124,8 @@ class Oci8 implements DriverInterface
      */
     public function prepareQuery($query)
     {
+        $this->connect($this->config);
+
         if ($this->statement = oci_parse($this->connection, $query)) {
             return $this;
         }
@@ -173,6 +186,7 @@ class Oci8 implements DriverInterface
      */
     public function transaction()
     {
+        $this->connect($this->config);
         $this->setAutoCommit(false);
         return $this;
     }

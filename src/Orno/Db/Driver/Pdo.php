@@ -31,6 +31,13 @@ class Pdo implements DriverInterface
     protected $statement;
 
     /**
+     * Configuration array
+     *
+     * @var array
+     */
+    protected $config;
+
+    /**
      * Constructor
      *
      * @throws \Orno\Db\Exception\UnsupportedException
@@ -44,7 +51,7 @@ class Pdo implements DriverInterface
             );
         }
 
-        $this->connect($config);
+        $this->config = $config;
     }
 
     /**
@@ -56,6 +63,10 @@ class Pdo implements DriverInterface
      */
     public function connect(array $config = [])
     {
+        if ($this->connection instanceof \PDO) {
+            return $this;
+        }
+
         $options = (isset($config['options'])) ? $config['options'] : [];
 
         $options[\PDO::ATTR_PERSISTENT] = (isset($config['persistent'])) ? (bool) $config['persistent'] : true;
@@ -100,6 +111,8 @@ class Pdo implements DriverInterface
      */
     public function prepareQuery($query)
     {
+        $this->connect($this->config);
+
         try {
             $this->statement = $this->connection->prepare($query);
         } catch (\PDOException $e) {
@@ -165,6 +178,7 @@ class Pdo implements DriverInterface
      */
     public function transaction()
     {
+        $this->connect($this->config);
         $this->connection->beginTransaction();
         return $this;
     }
