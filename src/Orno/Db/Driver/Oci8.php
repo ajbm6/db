@@ -69,10 +69,12 @@ class Oci8 implements DriverInterface
     public function connect(array $config = [])
     {
         // filter config array
-        $persistent = (isset($config['persistent'])) ? $config['persistent'] : true;
-        $database   = (isset($config['database']))   ? $config['database']   : null;
-        $username   = (isset($config['username']))   ? $config['username']   : null;
-        $password   = (isset($config['password']))   ? $config['password']   : null;
+        $persistent = (isset($config['persistent'])) ? (bool) $config['persistent'] : true;
+
+        $database = (isset($config['database'])) ? $config['database'] : null;
+        $username = (isset($config['username'])) ? $config['username'] : null;
+        $password = (isset($config['password'])) ? $config['password'] : null;
+        $charset  = (isset($config['charset']))  ? $config['charset']  : 'AL32UTF8';
 
         // intentionally supress errors to catch with oci_error
         $this->connection = ($persistent === true)
@@ -124,13 +126,13 @@ class Oci8 implements DriverInterface
      *
      * @throws \Orno\Db\Exception\BindingException
      * @throws \Orno\Db\Exception\NoResourceException
-     * @param  string  $placeholder
-     * @param  mixed  &$value
+     * @param  miced   $placeholder
+     * @param  mixed   $value
      * @param  integer $type
      * @param  integer $maxlen
      * @return \Orno\Db\Driver\Oci8
      */
-    public function bindParam($placeholder, &$value, $type = SQLT_CHR, $maxlen = -1)
+    public function bind($placeholder, $value, $type = SQLT_CHR, $maxlen = -1)
     {
         if (! is_resource($this->statement)) {
             throw new Exception\NoResourceException(
@@ -145,22 +147,6 @@ class Oci8 implements DriverInterface
         // if we've got this far, bail out as the binding has failed
         $e = oci_error($this->statement);
         throw new Exception\BindingException(sprintf($e['message'], $e['code']));
-    }
-
-    /**
-     * Bind Value
-     *
-     * Proxies to bind param but allows a value to be passed rather than a reference
-     * to a variable
-     *
-     * @param string  $placeholder
-     * @param mixed   $value
-     * @param integer $type
-     * @return \Orno\Db\Driver\Oci8
-     */
-    public function bindValue($placeholder, $value, $type = SQLT_CHR)
-    {
-        return $this->bindParam($placeholder, $value, $type);
     }
 
     /**

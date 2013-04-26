@@ -51,18 +51,7 @@ interface DriverInterface
      * @param integer $type
      * @param integer $maxlen
      */
-    public function bindParam($placeholder, &$value, $type, $maxlen);
-
-    /**
-     * Bind Value
-     *
-     * Bind an actual value to a placeholder in the prepared query
-     *
-     * @param string  $placeholder
-     * @param mixed   $value
-     * @param integer $type
-     */
-    public function bindValue($placeholder, $value, $type);
+    public function bind($placeholder, $value, $type, $maxlen);
 
     /**
      * Execute
