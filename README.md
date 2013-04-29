@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/orno/db.png?branch=master)](https://travis-ci.org/orno/db)
 
-A simple database abstraction layer.
+A simple database abstraction layer. It provides a unified API to enable you to write ANSI/ISO SQL that will be handled in the same way, regardless of your database driver.
 
 ### Support
 
