@@ -81,7 +81,7 @@ class Pdo implements DriverInterface
 
             // prior to 5.3.6 the charset key in the connection string is ignored
             // so we can check the PHP version and force charset this way
-            if (strnatcmp(phpversion(), '5.3.6') < 0) {
+            if (version_compare(phpversion(), '5.3.6') < 0) {
                 $this->connection->exec("SET NAMES $charset");
             }
         } catch (\PDOException $e) {
