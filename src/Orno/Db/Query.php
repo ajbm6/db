@@ -78,7 +78,7 @@ class Query
     public function prepare($query)
     {
         if (! empty($this->config)) {
-            $this->getDriver()->connect($config);
+            $this->getDriver()->connect($this->config);
         }
 
         $this->getDriver()->prepareQuery($query);
@@ -129,7 +129,7 @@ class Query
     public function transaction()
     {
         if (! empty($this->config)) {
-            $this->getDriver()->connect($config);
+            $this->getDriver()->connect($this->config);
         }
 
         $this->getDriver()->transaction();
