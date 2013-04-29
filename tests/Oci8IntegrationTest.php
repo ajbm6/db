@@ -267,20 +267,20 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
     public function getInitialData()
     {
         return [
-            ['USERNAME' => 'pbenn', 'EMAIL' => 'phil.bennett@symphony-group.co.uk'],
-            ['USERNAME' => 'posbo', 'EMAIL' => 'paul.osborne@symphony-group.co.uk'],
-            ['USERNAME' => 'mbard', 'EMAIL' => 'michael.bardsley@symphony-group.co.uk'],
-            ['USERNAME' => 'jfrye', 'EMAIL' => 'james.fryer@symphony-group.co.uk'],
-            ['USERNAME' => 'stephenl', 'EMAIL' => 'stephen.lang@symphony-group.co.uk']
+            ['USERNAME' => 'pbenn', 'EMAIL' => 'pbenn@example.com'],
+            ['USERNAME' => 'posbo', 'EMAIL' => 'posbo@example.com'],
+            ['USERNAME' => 'mbard', 'EMAIL' => 'mbard@example.com'],
+            ['USERNAME' => 'jfrye', 'EMAIL' => 'jfrye@example.com'],
+            ['USERNAME' => 'slang', 'EMAIL' => 'slang@example.com']
         ];
     }
 
     public function getUpdatedData()
     {
         return [
-            ['USERNAME' => 'pbenn_updated', 'EMAIL' => 'phil.bennett@symphony-group.co.uk'],
-            ['USERNAME' => 'posbo_updated', 'EMAIL' => 'paul.osborne@symphony-group.co.uk'],
-            ['USERNAME' => 'mbard_updated', 'EMAIL' => 'michael.bardsley@symphony-group.co.uk']
+            ['USERNAME' => 'pbenn_updated', 'EMAIL' => 'pbenn@example.com'],
+            ['USERNAME' => 'posbo_updated', 'EMAIL' => 'posbo@example.com'],
+            ['USERNAME' => 'mbard_updated', 'EMAIL' => 'mbard@example.com']
         ];
     }
 }
