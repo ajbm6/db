@@ -13,7 +13,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Orno\Db\Driver\Pdo', $q->getDriver());
 
         $q->setDriver($driver);
-        $this->assertInstanceOf('Orno\Db\Driver\Pdo', $q->getDriver());
+        $this->assertSame($driver, $q->getDriver());
     }
 
     public function testPreparesQuery()
