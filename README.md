@@ -15,7 +15,7 @@ Orno\Db is well unit tested but also has integration tests, the integration test
 
 ### Oracle Integration Tests
 
-Add the following to the `phpunit.xml.dist` configuration file to be able to connect for integration testing **Oracle**.
+Add the following to the `phpunit.xml.dist` configuration file to enable **Oracle** integration testing.
 
     <php>
         <var name="OCI8_DATABASE" value="CONNECTION_STRING" />
@@ -25,7 +25,7 @@ Add the following to the `phpunit.xml.dist` configuration file to be able to con
 
 ### PDO Integration Tests
 
-Add the following to the `phpunit.xml.dist` configuration file to be able to connect for integration testing **PDO**.
+Add the following to the `phpunit.xml.dist` configuration file to enable **PDO** integration testing.
 
     <php>
         <var name="PDO_DATABASE" value="CONNECTION_STRING" />
