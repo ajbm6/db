@@ -33,6 +33,7 @@ class Query
      * Constructor
      *
      * @param \Orno\Db\Driver\DriverInterface
+     * @param array $config
      */
     public function __construct(Driver\DriverInterface $driver, array $config = [])
     {
@@ -76,6 +77,10 @@ class Query
      */
     public function prepare($query)
     {
+        if (! empty($this->config)) {
+            $this->getDriver()->connect($config);
+        }
+
         $this->getDriver()->prepareQuery($query);
         return $this;
     }
@@ -123,6 +128,10 @@ class Query
      */
     public function transaction()
     {
+        if (! empty($this->config)) {
+            $this->getDriver()->connect($config);
+        }
+
         $this->getDriver()->transaction();
         return $this;
     }
