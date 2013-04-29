@@ -47,7 +47,7 @@ interface DriverInterface
      * Bind the value of a referenced variable to a placeholder in the prepared query
      *
      * @param string  $placeholder
-     * @param mixed   &$value - Referenced variable
+     * @param mixed   $value - Referenced variable
      * @param integer $type
      * @param integer $maxlen
      */

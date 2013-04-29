@@ -139,7 +139,7 @@ class Oci8 implements DriverInterface
      *
      * @throws \Orno\Db\Exception\BindingException
      * @throws \Orno\Db\Exception\NoResourceException
-     * @param  miced   $placeholder
+     * @param  mixed   $placeholder
      * @param  mixed   $value
      * @param  integer $type
      * @param  integer $maxlen
