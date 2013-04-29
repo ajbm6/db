@@ -15,7 +15,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "Orno\\Db": "src/",
+            "Orno\\Db": "src/"
         }
     },
     "minimum-stability": "dev"
