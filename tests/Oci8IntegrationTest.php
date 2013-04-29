@@ -14,18 +14,16 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        if (! extension_loaded('oci8')) {
+            $this->markTestSkipped('The OCI8 extension is not loaded and therefore cannot be integration tested');
+        }
+
         foreach ($this->config as $key => $val) {
             if (! isset($GLOBALS[$val])) {
-                $this->markTestSkipped(
-                    sprintf('Missing required config variable %s from phpunit.xml', $val)
-                );
+                $this->markTestSkipped('Missing required config variable ' . $val . ' from phpunit.xml');
             }
 
             $this->config[$key] = $GLOBALS[$val];
-        }
-
-        if (! extension_loaded('oci8')) {
-            $this->markTestSkipped('The OCI8 extension is not loaded and therefore cannot be integration tested');
         }
 
         $this->driver = new Oci8($this->config);
@@ -33,9 +31,12 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        @$this->driver->prepareQuery('DROP TABLE test_data');
-        @$this->driver->execute();
-        @$this->driver->disconnect();
+        if (extension_loaded('oci8')) {
+            @$this->driver->prepareQuery('DROP TABLE test_data');
+            @$this->driver->execute();
+            @$this->driver->disconnect();
+        }
+
         unset($this->driver);
     }
 
