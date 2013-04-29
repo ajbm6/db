@@ -11,9 +11,7 @@ A simple database abstraction layer.
 
 ## Testing
 
-A full test quite is provided in the `tests` directory.
-
-#### Oracle
+### Oracle
 
 Testing for oracle integration requires the `OCI8` extension to be loaded and for you to provide your connection details in the `phpunit.xml.dist`.
 
