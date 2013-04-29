@@ -40,7 +40,11 @@ class Oci8 implements DriverInterface
      *
      * @var array
      */
-    protected $config;
+    protected $config = [
+        'database' => null,
+        'username' => null,
+        'password' => null
+    ];
 
     /**
      * Should executions be auto commited?
@@ -82,9 +86,9 @@ class Oci8 implements DriverInterface
         // filter config array
         $persistent = (isset($config['persistent'])) ? (bool) $config['persistent'] : true;
 
-        $database = (isset($config['database'])) ? $config['database'] : null;
-        $username = (isset($config['username'])) ? $config['username'] : null;
-        $password = (isset($config['password'])) ? $config['password'] : null;
+        $database = (isset($config['database'])) ? $config['database'] : $this->config['database'];
+        $username = (isset($config['username'])) ? $config['username'] : $this->config['username'];
+        $password = (isset($config['password'])) ? $config['password'] : $this->config['password'];
         $charset  = (isset($config['charset']))  ? $config['charset']  : 'AL32UTF8';
 
         // intentionally supress errors to catch with oci_error
@@ -126,12 +130,8 @@ class Oci8 implements DriverInterface
     {
         $this->connect($this->config);
 
-        if ($this->statement = oci_parse($this->connection, $query)) {
-            return $this;
-        }
-
-        $e = oci_error($this->connection);
-        throw new Exception\QueryException($e['message'], $e['code']);
+        $this->statement = oci_parse($this->connection, $query);
+        return $this;
     }
 
     /**
@@ -153,7 +153,7 @@ class Oci8 implements DriverInterface
             );
         }
 
-        if (oci_bind_by_name($this->statement, $placeholder, $value, $maxlen, $type)) {
+        if (@oci_bind_by_name($this->statement, $placeholder, $value, $maxlen, $type)) {
             return $this;
         }
 
