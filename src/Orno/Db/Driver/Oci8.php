@@ -187,7 +187,14 @@ class Oci8 implements DriverInterface
             );
         }
 
-        return ($this->isAutoCommit()) ? oci_execute($this->statement) : oci_execute($this->statement, OCI_NO_AUTO_COMMIT);
+        $executed = ($this->isAutoCommit()) ? @oci_execute($this->statement) : @oci_execute($this->statement, OCI_NO_AUTO_COMMIT);
+
+        if ($executed === true) {
+            return true;
+        }
+
+        $e = oci_error($this->statement);
+        throw new Exception\BindingException(sprintf($e['message'], $e['code']));
     }
 
     /**
