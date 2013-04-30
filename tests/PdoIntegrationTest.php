@@ -12,6 +12,8 @@ class PdoIntegrationTest extends \PHPUnit_Framework_TestCase
 
     protected $driver;
 
+    protected $staged = true;
+
     public function setUp()
     {
         if (! extension_loaded('pdo')) {
@@ -20,6 +22,7 @@ class PdoIntegrationTest extends \PHPUnit_Framework_TestCase
 
         foreach ($this->config as $key => $val) {
             if (! isset($GLOBALS[$val])) {
+                $this->staged = false;
                 $this->markTestSkipped('Missing required config variable ' . $val . ' from phpunit.xml');
             }
 
@@ -31,7 +34,7 @@ class PdoIntegrationTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        if (extension_loaded('pdo')) {
+        if (extension_loaded('pdo') && $this->staged === true) {
             @$this->driver->prepareQuery('DROP TABLE test_data');
             @$this->driver->execute();
             @$this->driver->disconnect();
