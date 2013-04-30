@@ -35,7 +35,11 @@ class Pdo implements DriverInterface
      *
      * @var array
      */
-    protected $config;
+    protected $config = [
+        'database' => null,
+        'username' => null,
+        'password' => null
+    ];
 
     /**
      * Constructor
@@ -71,9 +75,9 @@ class Pdo implements DriverInterface
 
         $options[\PDO::ATTR_PERSISTENT] = (isset($config['persistent'])) ? (bool) $config['persistent'] : true;
 
-        $database = (isset($config['database'])) ? $config['database'] : null;
-        $username = (isset($config['username'])) ? $config['username'] : null;
-        $password = (isset($config['password'])) ? $config['password'] : null;
+        $database = (isset($config['database'])) ? $config['database'] : $this->config['database'];
+        $username = (isset($config['username'])) ? $config['username'] : $this->config['username'];
+        $password = (isset($config['password'])) ? $config['password'] : $this->config['password'];
         $charset  = (isset($config['charset']))  ? $config['charset']  : 'UTF8';
 
         try {
@@ -85,7 +89,7 @@ class Pdo implements DriverInterface
                 $this->connection->exec("SET NAMES $charset");
             }
         } catch (\PDOException $e) {
-            throw new Exception\ConnectionException($e->getMessage, $e->getCode);
+            throw new Exception\ConnectionException($e->getMessage(), $e->getCode());
         }
 
         return $this;
@@ -98,6 +102,7 @@ class Pdo implements DriverInterface
      */
     public function disconnect()
     {
+        unset($this->statement);
         unset($this->connection);
         return true;
     }
@@ -113,12 +118,7 @@ class Pdo implements DriverInterface
     {
         $this->connect($this->config);
 
-        try {
-            $this->statement = $this->connection->prepare($query);
-        } catch (\PDOException $e) {
-            throw new Exception\QueryException($e->getMessage(), $e->getCode());
-        }
-
+        $this->statement = $this->connection->prepare($query);
         return $this;
     }
 
@@ -141,14 +141,10 @@ class Pdo implements DriverInterface
             );
         }
 
-        try {
-            if ($maxlen > 0) {
-                $this->statement->bindParam($placeholder, $value, $type, (int) $maxlen);
-            } else {
-                $this->statement->bindParam($placeholder, $value, $type);
-            }
-        } catch (\PDOException $e) {
-            throw new Exception\BindingException($e->getMessage(), $e->getCode());
+        if ($maxlen > 0) {
+            $this->statement->bindParam($placeholder, $value, $type, (int) $maxlen);
+        } else {
+            $this->statement->bindParam($placeholder, $value, $type);
         }
 
         return $this;
