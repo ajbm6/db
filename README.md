@@ -9,6 +9,65 @@ A simple database abstraction layer. It provides a unified API to enable you to 
 - Oracle OCI8
 - PDO
 
+## Basic Usage
+
+### Simple Statements
+
+```php
+<?php
+
+$config = [
+    'database' => 'mysql:dbname=database;host=localhost;charset=utf8',
+    'username' => 'root',
+    'password' => 'password'
+];
+
+$driver = new Orno\Db\Driver\Pdo($config);
+$query = new Orno\Db\Query($driver);
+
+$query->prepare('SELECT field_name, field_name2, field_name3 FROM some_table');
+$query->execute();
+
+while ($row = $query->fetch()) {
+    echo $row['field_name'] . '<br>';
+    echo $row['field_name2'] . '<br>';
+    echo $row['field_name3'] . '<br>';
+}
+```
+
+### Binding Parameters
+
+Binding parameters handles all sanitisation for you and guards against any SQL injection.
+
+```php
+<?php
+
+$config = [
+    'database' => 'ORACLE_CONNECTION_STRING',
+    'username' => 'username',
+    'password' => 'password'
+];
+
+$driver = new Orno\Db\Driver\Oci8($config);
+$query = new Orno\Db\Query($driver);
+
+$query->prepare('SELECT field_name, field_name2, field_name3
+                 FROM some_table
+                 WHERE field_name = :some_value
+                 AND field_name2 = :some_other_value');
+
+$query->bind(':some_value', 'some_value')
+      ->bind(':some_other_value', 88, Orno\Db\Query::PARAM_INT);
+
+$query->execute();
+
+while ($row = $query->fetchObject()) {
+    echo $row->field_name . '<br>';
+    echo $row->field_name2 . '<br>';
+    echo $row->field_name3 . '<br>';
+}
+```
+
 ## Testing Notes
 
 Orno\Db is well unit tested but also has integration tests, the integration tests require the ability to touch the database and therefore need connection credentials to do so. Below are instructions on how to run the integration tests.
