@@ -1,4 +1,4 @@
-# Orno\Db [In Development]
+# Orno\Db
 
 [![Build Status](https://travis-ci.org/orno/db.png?branch=master)](https://travis-ci.org/orno/db)
 
@@ -8,6 +8,13 @@ A simple database abstraction layer. It provides a unified API to enable you to 
 
 - Oracle OCI8
 - PDO
+
+### Planned
+
+- MySQLi
+- SQLite
+- MSSQL
+- PostgreSQL
 
 ## Basic Usage
 
