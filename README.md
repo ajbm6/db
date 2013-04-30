@@ -2,23 +2,33 @@
 
 [![Build Status](https://travis-ci.org/orno/db.png?branch=master)](https://travis-ci.org/orno/db)
 
-A simple database abstraction layer.
+A simple database abstraction layer. It provides a unified API to enable you to write ANSI/ISO SQL that will be handled in the same way, regardless of your database driver.
 
 ### Support
 
 - Oracle OCI8
 - PDO
 
-## Testing
+## Testing Notes
 
-### Oracle
+Orno\Db is well unit tested but also has integration tests, the integration tests require the ability to touch the database and therefore need connection credentials to do so. Below are instructions on how to run the integration tests.
 
-Testing for oracle integration requires the `OCI8` extension to be loaded and for you to provide your connection details in the `phpunit.xml.dist`.
+### Oracle Integration Tests
 
-Add the following to the `phpunit.xml.dist` configuration file to be able to connect for testing Oracle integration.
+Add the following to the `phpunit.xml.dist` configuration file to enable **Oracle** integration testing.
 
     <php>
         <var name="OCI8_DATABASE" value="CONNECTION_STRING" />
         <var name="OCI8_USERNAME" value="username" />
         <var name="OCI8_PASSWORD" value="password" />
+    </php>
+
+### PDO Integration Tests
+
+Add the following to the `phpunit.xml.dist` configuration file to enable **PDO** integration testing.
+
+    <php>
+        <var name="PDO_DATABASE" value="CONNECTION_STRING" />
+        <var name="PDO_USERNAME" value="username" />
+        <var name="PDO_PASSWORD" value="password" />
     </php>
