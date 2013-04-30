@@ -68,6 +68,52 @@ while ($row = $query->fetchObject()) {
 }
 ```
 
+### Transactions
+
+To start a transaction, call the `transaction` method, run multiple queries and executes, then either `commit` or `rollback` your transaction.
+
+#### Commiting
+
+```php
+$query->transaction();
+
+$query->prepare('INSERT ...');
+// bind any parameters
+$query->execute();
+
+$query->prepare('UPDATE ...');
+// bind any parameters
+$query->execute();
+
+$query->commit();
+```
+
+#### Rolling Back
+
+```php
+$query->transaction();
+
+$query->prepare('INSERT ...');
+// bind some parameters
+$query->execute();
+
+$query->prepare('UPDATE ...');
+// bind some parameters
+$query->execute();
+
+$query->prepare('SELECT ...');
+$query->execute();
+$query->fetchAll();
+
+// if some conditions are met then commit
+// else rollback to the point before the transaction began
+if (/* .. */) {
+    $query->commit();
+} else {
+    $query->rollback();
+}
+```
+
 ## Testing Notes
 
 Orno\Db is well unit tested but also has integration tests, the integration tests require the ability to touch the database and therefore need connection credentials to do so. Below are instructions on how to run the integration tests.
