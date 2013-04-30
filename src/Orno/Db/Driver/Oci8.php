@@ -22,6 +22,15 @@ use Orno\Db\Exception;
 class Oci8 implements DriverInterface
 {
     /**
+     * Type constants
+     */
+    const PARAM_STR  = 1;
+    const PARAM_INT  = 2;
+    const PARAM_BOOL = 3;
+    const PARAM_BIN  = 4;
+    const PARAM_FLT  = 5;
+
+    /**
      * The Oci8 Connection Resource
      *
      * @var resource
@@ -145,13 +154,15 @@ class Oci8 implements DriverInterface
      * @param  integer $maxlen
      * @return \Orno\Db\Driver\Oci8
      */
-    public function bind($placeholder, $value, $type = SQLT_CHR, $maxlen = -1)
+    public function bind($placeholder, $value, $type = self::PARAM_STR, $maxlen = -1)
     {
         if (! is_resource($this->statement)) {
             throw new Exception\NoResourceException(
                 sprintf('%s expects a query to have been prepared', __METHOD__)
             );
         }
+
+        $type = $this->getValueType($type);
 
         if (@oci_bind_by_name($this->statement, $placeholder, $value, $maxlen, $type)) {
             return $this;
@@ -276,5 +287,36 @@ class Oci8 implements DriverInterface
         }
 
         return (oci_fetch_all($this->statement, $result, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC) > 0) ? $result : [];
+    }
+
+    /**
+     * Get Value Type
+     *
+     * Unify value types accross all drivers
+     *
+     * @param  integer $value
+     * @return integer
+     */
+    protected function getValueType($type)
+    {
+        switch ($type) {
+            case self::PARAM_STR:
+                $type = SQLT_CHR;
+                break;
+            case self::PARAM_INT:
+                $type = SQLT_INT;
+                break;
+            case self::PARAM_BOOL:
+                $type = SQLT_CHR;
+                break;
+            case self::PARAM_BIN:
+                $type = SQLT_BIN;
+                break;
+            case self::PARAM_FLT:
+                $type = SQLT_FLT;
+                break;
+        }
+
+        return $type;
     }
 }

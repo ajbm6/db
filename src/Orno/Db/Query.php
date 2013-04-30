@@ -16,6 +16,15 @@ namespace Orno\Db;
 class Query
 {
     /**
+     * Type constants
+     */
+    const PARAM_STR  = 1;
+    const PARAM_INT  = 2;
+    const PARAM_BOOL = 3;
+    const PARAM_BIN  = 4;
+    const PARAM_FLT  = 5;
+
+    /**
      * Database connection driver
      *
      * @var \Orno\Db\Driver\DriverInterface
@@ -95,13 +104,9 @@ class Query
      * @param  int   $type
      * @return \Orno\Db\Query
      */
-    public function bind($placeholder, $value, $type = null)
+    public function bind($placeholder, $value, $type = self::PARAM_STR)
     {
-        if (is_null($type)) {
-            $this->getDriver()->bind($placeholder, $value);
-        } else {
-            $this->getDriver()->bind($placeholder, $value, $type);
-        }
+        $this->getDriver()->bind($placeholder, $value, $type);
 
         return $this;
     }
