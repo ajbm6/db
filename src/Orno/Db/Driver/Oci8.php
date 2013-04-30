@@ -60,7 +60,7 @@ class Oci8 implements DriverInterface
      *
      * @var boolean
      */
-    protected $autoCommit = false;
+    protected $autoCommit = true;
 
     /**
      * Constructor
