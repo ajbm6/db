@@ -1,8 +1,7 @@
 {
     "name": "orno/db",
     "description": "A database abstraction library.",
-    "keywords": ["orno", "db", "oracle", "pdo", "mysql"],
-    "homepage": "http://github.com/orno/di",
+    "keywords": ["orno", "db", "oracle", "pdo", "mysql", "mysqli"],
     "license": "WTFPL",
     "require": {
         "php": ">=5.4"
