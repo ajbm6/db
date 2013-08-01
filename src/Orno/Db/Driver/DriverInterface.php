@@ -113,6 +113,16 @@ interface DriverInterface
     public function fetchObject();
 
     /**
+     * Last Insert ID
+     *
+     * Returns the ID of the last inserted row, or the last value from a sequence object
+     *
+     * @param $name Name of the sequence object from which the ID should be returned
+     * @return string
+     */
+    public function lastInsertId($name = '');
+
+    /**
      * Fetch All
      *
      * Return a multi-deminesional array of all rows from the result set

@@ -272,6 +272,17 @@ class Pdo implements DriverInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @param string $name Name of the sequence object from which the ID should be returned
+     * @return string
+     */
+    public function lastInsertId($name = '')
+    {
+        return $this->connection->lastInsertId();
+    }
+
+    /**
      * Get Value Type
      *
      * Unify value types accross all drivers

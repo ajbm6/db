@@ -304,6 +304,18 @@ class Oci8 implements DriverInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @param string $name Name of the sequence object from which the ID should be returned
+     * @return null
+     */
+    public function lastInsertId($name = '')
+    {
+        // Not implemented!
+        return null;
+    }
+
+    /**
      * Get Value Type
      *
      * Unify value types accross all drivers

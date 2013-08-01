@@ -211,9 +211,6 @@ class PdoIntegrationTest extends \PHPUnit_Framework_TestCase
         $this->driver->prepareQuery('SELECT * FROM test_data');
         $this->driver->execute();
 
-        $this->driver->prepareQuery('SELECT * FROM test_data');
-        $this->driver->execute();
-
         foreach ($this->getInitialData() as $data) {
             $this->assertSame($data, $this->driver->fetch());
         }
@@ -250,14 +247,34 @@ class PdoIntegrationTest extends \PHPUnit_Framework_TestCase
         $this->driver->prepareQuery('SELECT * FROM test_data');
         $this->driver->execute();
 
-        $this->driver->prepareQuery('SELECT * FROM test_data');
-        $this->driver->execute();
-
         foreach ($this->getInitialData() as $data) {
             $row = $this->driver->fetchObject();
             $this->assertSame($data['username'], $row->username);
             $this->assertSame($data['email'], $row->email);
         }
+    }
+
+    public function testLastInsertId()
+    {
+        $this->driver->prepareQuery(
+            'CREATE TABLE test_data(
+                id int(1) NOT NULL AUTO_INCREMENT,
+                username varchar(100),
+                email varchar(100),
+                PRIMARY KEY (id)
+            )'
+        );
+        $this->driver->execute();
+
+        $initialData = $this->getInitialData();
+        foreach ($initialData as $id => $data) {
+            $this->driver->prepareQuery('INSERT INTO test_data (`username`, `email`) VALUES (:username, :email)');
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
+            $this->driver->execute();
+        }
+
+        $this->assertSame((string) count($initialData), $this->driver->lastInsertId());
     }
 
     public function getInitialData()
