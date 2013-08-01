@@ -261,7 +261,7 @@ class Oci8 implements DriverInterface
             );
         }
 
-        return oci_fetch_assoc($this->statement);
+        return array_change_key_case(oci_fetch_assoc($this->statement));
     }
 
     /**
@@ -277,7 +277,8 @@ class Oci8 implements DriverInterface
             );
         }
 
-        return oci_fetch_object($this->statement);
+        $result = oci_fetch_object($this->statement);
+        return (object) array_change_key_case((array) $result);
     }
 
     /**
@@ -293,7 +294,13 @@ class Oci8 implements DriverInterface
             );
         }
 
-        return (oci_fetch_all($this->statement, $result, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC) > 0) ? $result : [];
+        $result = (oci_fetch_all($this->statement, $result, 0, -1, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC) > 0) ? $result : [];
+
+        array_walk($result, function (&$value) {
+            $value = array_change_key_case($value);
+        });
+
+        return $result;
     }
 
     /**

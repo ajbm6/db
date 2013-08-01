@@ -107,8 +107,8 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         foreach ($this->getInitialData() as $data) {
             $this->driver->prepareQuery('INSERT INTO test_data VALUES (:username, :email)');
-            $this->driver->bind(':username', $data['USERNAME']);
-            $this->driver->bind(':email', $data['EMAIL']);
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
             $this->driver->execute();
         }
 
@@ -127,8 +127,8 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         foreach ($this->getInitialData() as $data) {
             $this->driver->prepareQuery('INSERT INTO test_data VALUES (:username, :email)');
-            $this->driver->bind(':username', $data['USERNAME']);
-            $this->driver->bind(':email', $data['EMAIL']);
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
             $this->driver->execute();
         }
 
@@ -143,8 +143,8 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         foreach ($this->getUpdatedData() as $data) {
             $this->driver->prepareQuery('UPDATE test_data SET username = :username WHERE email = :email');
-            $this->driver->bind(':username', $data['USERNAME']);
-            $this->driver->bind(':email', $data['EMAIL']);
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
             $this->driver->execute();
         }
 
@@ -169,8 +169,8 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         foreach ($this->getInitialData() as $data) {
             $this->driver->prepareQuery('INSERT INTO test_data VALUES (:username, :email)');
-            $this->driver->bind(':username', $data['USERNAME']);
-            $this->driver->bind(':email', $data['EMAIL']);
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
             $this->driver->execute();
         }
 
@@ -185,8 +185,8 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         foreach ($this->getUpdatedData() as $data) {
             $this->driver->prepareQuery('UPDATE test_data SET username = :username WHERE email = :email');
-            $this->driver->bind(':username', $data['USERNAME']);
-            $this->driver->bind(':email', $data['EMAIL']);
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
             $this->driver->execute();
         }
 
@@ -217,8 +217,8 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         foreach ($this->getInitialData() as $data) {
             $this->driver->prepareQuery('INSERT INTO test_data VALUES (:username, :email)');
-            $this->driver->bind(':username', $data['USERNAME']);
-            $this->driver->bind(':email', $data['EMAIL']);
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
             $this->driver->execute();
         }
 
@@ -256,8 +256,8 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         foreach ($this->getInitialData() as $data) {
             $this->driver->prepareQuery('INSERT INTO test_data VALUES (:username, :email)');
-            $this->driver->bind(':username', $data['USERNAME']);
-            $this->driver->bind(':email', $data['EMAIL']);
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
             $this->driver->execute();
         }
 
@@ -271,28 +271,28 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         foreach ($this->getInitialData() as $data) {
             $row = $this->driver->fetchObject();
-            $this->assertSame($data['USERNAME'], $row->USERNAME);
-            $this->assertSame($data['EMAIL'], $row->EMAIL);
+            $this->assertSame($data['username'], $row->username);
+            $this->assertSame($data['email'], $row->email);
         }
     }
 
     public function getInitialData()
     {
         return [
-            ['USERNAME' => 'pbenn', 'EMAIL' => 'pbenn@example.com'],
-            ['USERNAME' => 'posbo', 'EMAIL' => 'posbo@example.com'],
-            ['USERNAME' => 'mbard', 'EMAIL' => 'mbard@example.com'],
-            ['USERNAME' => 'jfrye', 'EMAIL' => 'jfrye@example.com'],
-            ['USERNAME' => 'slang', 'EMAIL' => 'slang@example.com']
+            ['username' => 'pbenn', 'email' => 'pbenn@example.com'],
+            ['username' => 'posbo', 'email' => 'posbo@example.com'],
+            ['username' => 'mbard', 'email' => 'mbard@example.com'],
+            ['username' => 'jfrye', 'email' => 'jfrye@example.com'],
+            ['username' => 'slang', 'email' => 'slang@example.com']
         ];
     }
 
     public function getUpdatedData()
     {
         return [
-            ['USERNAME' => 'pbenn_updated', 'EMAIL' => 'pbenn@example.com'],
-            ['USERNAME' => 'posbo_updated', 'EMAIL' => 'posbo@example.com'],
-            ['USERNAME' => 'mbard_updated', 'EMAIL' => 'mbard@example.com']
+            ['username' => 'pbenn_updated', 'email' => 'pbenn@example.com'],
+            ['username' => 'posbo_updated', 'email' => 'posbo@example.com'],
+            ['username' => 'mbard_updated', 'email' => 'mbard@example.com']
         ];
     }
 }
