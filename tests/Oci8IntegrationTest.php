@@ -32,7 +32,17 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         if (extension_loaded('oci8')) {
-            @$this->driver->prepareQuery('DROP TABLE test_data');
+            // Equivalent to DROP TABLE IF EXISTS
+            @$this->driver->prepareQuery(
+                "BEGIN
+                    EXECUTE IMMEDIATE 'DROP TABLE test_data';
+                EXCEPTION
+                    WHEN OTHERS THEN
+                        IF SQLCODE != -942 THEN
+                            RAISE;
+                        END IF;
+                END;"
+            );
             @$this->driver->execute();
             @$this->driver->disconnect();
         }
@@ -77,7 +87,9 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
     public function testBindingParameter()
     {
-        $this->driver->prepareQuery('SELECT * FROM test_data WHERE placeholder = :placeholder AND placeholder2 = :placeholder2');
+        $this->driver->prepareQuery(
+            'SELECT * FROM test_data WHERE placeholder = :placeholder AND placeholder2 = :placeholder2'
+        );
         $this->assertSame($this->driver, $this->driver->bind(':placeholder', 'value'));
         $this->assertSame($this->driver, $this->driver->bind(':placeholder2', 'value'));
     }
