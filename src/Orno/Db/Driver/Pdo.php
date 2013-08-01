@@ -51,6 +51,13 @@ class Pdo implements DriverInterface
     ];
 
     /**
+     * PDO Driver
+     * 
+     * @var string
+     */
+    protected $pdoDriver;
+
+    /**
      * Constructor
      *
      * @throws \Orno\Db\Exception\UnsupportedException
@@ -58,9 +65,17 @@ class Pdo implements DriverInterface
      */
     public function __construct(array $config = [])
     {
+        $this->pdoDriver = explode(':', $config['database'])[0];
+
         if (! extension_loaded('pdo')) {
             throw new Exception\UnsupportedException(
                 sprintf('%s requires the PDO extension to be loaded', __CLASS__)
+            );
+        }
+
+        if (! in_array($this->pdoDriver, \PDO::getAvailableDrivers())) {
+            throw new Exception\UnsupportedException(
+                sprintf('%s driver is unavailable', $this->pdoDriver)
             );
         }
 
