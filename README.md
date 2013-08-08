@@ -1,6 +1,6 @@
 # Orno\Db
 
-[![Build Status](https://travis-ci.org/orno/db.png?branch=master)](https://travis-ci.org/orno/db)
+[![Build Status](https://travis-ci.org/orno/db.png?branch=master)](https://travis-ci.org/orno/db) [![Latest Stable Version](https://poser.pugx.org/orno/db/v/stable.png)](https://packagist.org/packages/orno/db) [![Total Downloads](https://poser.pugx.org/orno/db/downloads.png)](https://packagist.org/packages/orno/db)
 
 A simple database abstraction layer. It provides a unified API to enable you to write ANSI/ISO SQL that will be handled in the same way, regardless of your database driver.
 

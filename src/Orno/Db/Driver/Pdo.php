@@ -3,7 +3,7 @@
  * The Orno Component Library
  *
  * @author  Phil Bennett @philipobenito
- * @license http://www.wtfpl.net/txt/copying/ WTFPL
+ * @license MIT (see LICENSE file)
  */
 namespace Orno\Db\Driver;
 
@@ -52,7 +52,7 @@ class Pdo implements DriverInterface
 
     /**
      * PDO Driver
-     * 
+     *
      * @var string
      */
     protected $pdoDriver;
