@@ -235,6 +235,52 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testFetchReturningFalse()
+    {
+        $this->driver->transaction();
+
+        $this->driver->prepareQuery('CREATE TABLE test_data (username varchar(100), email varchar(100))');
+        $this->driver->execute();
+
+        foreach ($this->getInitialData() as $data) {
+            $this->driver->prepareQuery('INSERT INTO test_data VALUES (:username, :email)');
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
+            $this->driver->execute();
+        }
+
+        $this->driver->commit();
+
+        $this->driver->prepareQuery('SELECT * FROM test_data WHERE username = "scham"');
+        $this->driver->execute();
+
+        $this->assertFalse($this->driver->fetch());
+        
+    }
+
+    public function testFetchObjectReturningFalse()
+    {
+        $this->driver->transaction();
+
+        $this->driver->prepareQuery('CREATE TABLE test_data (username varchar(100), email varchar(100))');
+        $this->driver->execute();
+
+        foreach ($this->getInitialData() as $data) {
+            $this->driver->prepareQuery('INSERT INTO test_data VALUES (:username, :email)');
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
+            $this->driver->execute();
+        }
+
+        $this->driver->commit();
+
+        $this->driver->prepareQuery('SELECT * FROM test_data WHERE username = "scham"');
+        $this->driver->execute();
+
+        $this->assertFalse($this->driver->fetchObject());
+        
+    }
+    
     public function testFetchAllThrowsExceptionWithoutStatement()
     {
         $this->setExpectedException('Orno\db\Exception\NoResourceException');
