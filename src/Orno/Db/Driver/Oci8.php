@@ -261,7 +261,8 @@ class Oci8 implements DriverInterface
             );
         }
 
-        return array_change_key_case(oci_fetch_assoc($this->statement));
+        $result = oci_fetch_assoc($this->statement);
+        return (empty($result)? false: array_change_key_case($result));
     }
 
     /**
@@ -278,7 +279,7 @@ class Oci8 implements DriverInterface
         }
 
         $result = oci_fetch_object($this->statement);
-        return (object) array_change_key_case((array) $result);
+        return (empty($result)? false: (object) array_change_key_case((array) $result));
     }
 
     /**
