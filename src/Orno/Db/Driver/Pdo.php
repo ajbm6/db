@@ -192,7 +192,13 @@ class Pdo implements DriverInterface
             );
         }
 
-        return $this->statement->execute();
+        $executed = $this->statement->execute();
+        if ($executed === true) {
+            return $this;
+        }
+
+        $e = $this->statement->errorInfo();
+        throw new Exception\BindingException(sprintf($e[2], $e[0]));
     }
 
     /**
