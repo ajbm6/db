@@ -251,11 +251,12 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         $this->driver->commit();
 
-        $this->driver->prepareQuery('SELECT * FROM test_data WHERE username = "scham"');
+        $this->driver->prepareQuery('SELECT * FROM test_data WHERE username = :username');
+        $this->driver->bind(":username", "scham");
         $this->driver->execute();
 
         $this->assertFalse($this->driver->fetch());
-        
+
     }
 
     public function testFetchObjectReturningFalse()
@@ -274,13 +275,14 @@ class Oci8IntegrationTest extends \PHPUnit_Framework_TestCase
 
         $this->driver->commit();
 
-        $this->driver->prepareQuery('SELECT * FROM test_data WHERE username = "scham"');
+        $this->driver->prepareQuery('SELECT * FROM test_data WHERE username = :username');
+        $this->driver->bind(":username", "scham");
         $this->driver->execute();
 
         $this->assertFalse($this->driver->fetchObject());
-        
+
     }
-    
+
     public function testFetchAllThrowsExceptionWithoutStatement()
     {
         $this->setExpectedException('Orno\db\Exception\NoResourceException');
