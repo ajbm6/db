@@ -190,7 +190,7 @@ class Oci8 implements DriverInterface
         $executed = ($this->isAutoCommit()) ? @oci_execute($this->statement) : @oci_execute($this->statement, OCI_NO_AUTO_COMMIT);
 
         if ($executed === true) {
-            return true;
+            return $this;
         }
 
         $e = oci_error($this->statement);
