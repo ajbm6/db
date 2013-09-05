@@ -35,7 +35,7 @@ class PdoIntegrationTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         if (extension_loaded('pdo') && $this->staged === true) {
-            @$this->driver->prepareQuery('DROP TABLE test_data');
+            @$this->driver->prepareQuery('DROP TABLE IF EXISTS test_data');
             @$this->driver->execute();
             @$this->driver->disconnect();
         }
@@ -214,6 +214,54 @@ class PdoIntegrationTest extends \PHPUnit_Framework_TestCase
         foreach ($this->getInitialData() as $data) {
             $this->assertSame($data, $this->driver->fetch());
         }
+    }
+
+    public function testFetchReturningFalse()
+    {
+        $this->driver->transaction();
+
+        $this->driver->prepareQuery('CREATE TABLE test_data (username varchar(100), email varchar(100))');
+        $this->driver->execute();
+
+        foreach ($this->getInitialData() as $data) {
+            $this->driver->prepareQuery('INSERT INTO test_data VALUES (:username, :email)');
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
+            $this->driver->execute();
+        }
+
+        $this->driver->commit();
+
+        $this->driver->prepareQuery('SELECT * FROM test_data WHERE username = :username');
+        $this->driver->bind(":username", "scham");
+        $this->driver->execute();
+
+        $this->assertFalse($this->driver->fetch());
+
+    }
+
+    public function testFetchObjectReturningFalse()
+    {
+        $this->driver->transaction();
+
+        $this->driver->prepareQuery('CREATE TABLE test_data (username varchar(100), email varchar(100))');
+        $this->driver->execute();
+
+        foreach ($this->getInitialData() as $data) {
+            $this->driver->prepareQuery('INSERT INTO test_data VALUES (:username, :email)');
+            $this->driver->bind(':username', $data['username']);
+            $this->driver->bind(':email', $data['email']);
+            $this->driver->execute();
+        }
+
+        $this->driver->commit();
+
+        $this->driver->prepareQuery('SELECT * FROM test_data WHERE username = :username');
+        $this->driver->bind(":username", "scham");
+        $this->driver->execute();
+
+        $this->assertFalse($this->driver->fetchObject());
+
     }
 
     public function testFetchAllThrowsExceptionWithoutStatement()
