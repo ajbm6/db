@@ -194,7 +194,7 @@ class Pdo implements DriverInterface
 
         $executed = $this->statement->execute();
         if ($executed === true) {
-            return $this;
+            return true;
         }
 
         $e = $this->statement->errorInfo();
