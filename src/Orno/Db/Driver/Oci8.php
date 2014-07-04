@@ -237,6 +237,7 @@ class Oci8 implements DriverInterface
      */
     public function commit()
     {
+        $this->setAutoCommit(true);
         return oci_commit($this->connection);
     }
 
