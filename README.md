@@ -145,6 +145,3 @@ Add the following to the `phpunit.xml.dist` configuration file to enable **PDO**
         <var name="PDO_PASSWORD" value="password" />
     </php>
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/orno/db/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
