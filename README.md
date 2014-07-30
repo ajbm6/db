@@ -1,6 +1,11 @@
 # Orno\Db
 
-[![Build Status](https://travis-ci.org/orno/db.png?branch=master)](https://travis-ci.org/orno/db) [![Latest Stable Version](https://poser.pugx.org/orno/db/v/stable.png)](https://packagist.org/packages/orno/db) [![Total Downloads](https://poser.pugx.org/orno/db/downloads.png)](https://packagist.org/packages/orno/db)
+[![Latest Version](https://img.shields.io/github/release/orno/db.svg?style=flat)](https://github.com/orno/db/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/orno/db/master.svg?style=flat)](https://travis-ci.org/orno/db)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/orno/db.svg?style=flat)](https://scrutinizer-ci.com/g/orno/db/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/orno/db.svg?style=flat)](https://scrutinizer-ci.com/g/orno/db)
+[![Total Downloads](https://img.shields.io/packagist/dt/orno/db.svg?style=flat)](https://packagist.org/packages/orno/db)
 
 A simple database abstraction layer. It provides a unified API to enable you to write ANSI/ISO SQL that will be handled in the same way, regardless of your database driver.
 
