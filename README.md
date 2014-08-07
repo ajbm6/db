@@ -1,6 +1,6 @@
 # Orno\Db
 
-[![Latest Version](https://img.shields.io/github/release/orno/db.svg?style=flat)](https://github.com/orno/db/releases)
+[![Latest Version](http://img.shields.io/packagist/v/orno/db.svg?style=flat)](https://packagist.org/packages/orno/db)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/orno/db/master.svg?style=flat)](https://travis-ci.org/orno/db)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/orno/db.svg?style=flat)](https://scrutinizer-ci.com/g/orno/db/code-structure)
