@@ -1,4 +1,4 @@
-# Orno\Db
+# Orno\Db by [@philipobenito](https://twitter.com/philipobenito)
 
 [![Latest Version](http://img.shields.io/packagist/v/orno/db.svg?style=flat)](https://packagist.org/packages/orno/db)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
