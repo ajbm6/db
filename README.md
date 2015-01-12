@@ -1,3 +1,7 @@
+> All Orno packages are now deprecated! The decision was made to concentrate purely on the Dependency Injection Container and the Route package. They have been moved to [The League of Extraordinary Packages](https://github.com/thephpleague) under [League\Container](https://github.com/thephpleague/container) and [League\Route](https://github.com/thephpleague/route).
+>
+> If you would like to take on development of any of the other packages, please create an issue and we will discuss a possible transfer.
+
 # Orno\Db by [@philipobenito](https://twitter.com/philipobenito)
 
 [![Latest Version](http://img.shields.io/packagist/v/orno/db.svg?style=flat)](https://packagist.org/packages/orno/db)
